@@ -1,0 +1,52 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Arjan Dhillon Player</title>
+  <style>
+    body {
+      background-color: black;
+      color: limegreen;
+      font-family: Arial, sans-serif;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      text-align: center;
+    }
+    audio {
+      margin-top: 20px;
+      width: 90%;
+    }
+  </style>
+</head>
+<body onclick="playSong()">
+  <h1>Welcome to punjabi Jukebox</h1>
+  <p>Click anywhere to start a random song</p>
+  <audio id="player" controls autoplay></audio>
+
+  <script>
+    const songs = [
+      "https://aac.saavncdn.com/245/95d50997cb5d4fe58c84866e58f7f8b2_160.mp4", // Jatt Disda
+      "https://aac.saavncdn.com/308/0652188de428ea865f97c7c1b3aee39d_160.mp4", // My Fellas
+      "https://aac.saavncdn.com/476/2469fd248dd88098f2f89d4f20923ed1_160.mp4", // Canada
+      "https://aac.saavncdn.com/766/38a456c66d9eaa4f3f4f1247d2746c56_160.mp4", // Bachke Bachke
+      "https://aac.saavncdn.com/295/4a4d961acc72cf0f8b9e0d69c7f4f674_160.mp4"  // Baddlan De Kaalje
+    ];
+
+    function playSong() {
+      const player = document.getElementById("player");
+      const random = songs[Math.floor(Math.random() * songs.length)];
+      player.src = random;
+      player.play();
+    }
+
+    // For browsers that allow autoplay after load
+    window.onload = () => {
+      setTimeout(playSong, 500);
+    };
+  </script>
+</body>
+</html>
