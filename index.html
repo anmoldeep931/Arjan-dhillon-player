@@ -3,44 +3,87 @@
 <head>
   <meta charset="UTF-8" />
   <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-  <title>Arjan Dhillon Player</title>
+  <title>Punjabi Jukebox</title>
   <style>
     body {
       background-color: black;
       color: limegreen;
       font-family: Arial, sans-serif;
-      display: flex;
-      flex-direction: column;
-      justify-content: center;
-      align-items: center;
-      height: 100vh;
       text-align: center;
+      padding-top: 50px;
     }
-    audio {
-      margin-top: 20px;
-      width: 90%;
+    h1 {
+      font-size: 2.5em;
+      margin-bottom: 20px;
+    }
+    #player {
+      margin: 20px auto;
+      width: 80%;
+      max-width: 640px;
+      height: 360px;
+    }
+    button {
+      padding: 10px 20px;
+      background-color: green;
+      color: white;
+      border: none;
+      font-size: 1em;
+      cursor: pointer;
+      border-radius: 5px;
+    }
+    button:hover {
+      background-color: darkgreen;
     }
   </style>
 </head>
 <body>
-  <h1>Welcome to Arjan Dhillon's Jukebox</h1>
-  <p>Click the button below to play a random song</p>
-  <button onclick="playSong()" style="padding: 10px 20px; background: green; color: white; border: none; font-size: 16px; border-radius: 5px;">Play</button>
-  <audio id="player" controls></audio>
+  <h1>Punjabi Jukebox</h1>
+  <button onclick="playRandomSong()">Play Random Song</button>
+  <div id="player"></div>
 
   <script>
-    const songs = [
-      "https://pagalsong.in/uploads/systemuploads/mp3/Arjan%20Dhillon/Glorious/01%20-%20Glorious%20(PaglaSongs).mp3",
-      "https://pagalsong.in/uploads/systemuploads/mp3/Arjan%20Dhillon/Glorious/02%20-%20Opinion%20(PaglaSongs).mp3",
-      "https://pagalsong.in/uploads/systemuploads/mp3/Arjan%20Dhillon/Jawani/01%20-%20Jawani%20(PaglaSongs).mp3",
-      "https://pagalsong.in/uploads/systemuploads/mp3/Arjan%20Dhillon/Glorious/04%20-%20Calculation%20(PaglaSongs).mp3"
+    // Array of YouTube video IDs for trending Punjabi songs
+    const videoIds = [
+      "bptF-ilf50Q", // FOMO - Jordan Sandhu
+      "VoAIPZrcfGw", // Chandigarh - Jesann
+      "SNqCf15dc48", // MISAAL - Fukrey
+      "AQXS9q94cCA", // Hawa De Bulle - Sharry Mann
+      "qNFTafCKtcE"  // Ki Hoya - B Praak ft. Afsana Khan
     ];
 
-    function playSong() {
-      const player = document.getElementById("player");
-      const randomSong = songs[Math.floor(Math.random() * songs.length)];
-      player.src = randomSong;
-      player.play();
+    let player;
+
+    // Load the IFrame Player API code asynchronously
+    const tag = document.createElement('script');
+    tag.src = "https://www.youtube.com/iframe_api";
+    const firstScriptTag = document.getElementsByTagName('script')[0];
+    firstScriptTag.parentNode.insertBefore(tag, firstScriptTag);
+
+    // Create the YouTube player after the API code downloads
+    function onYouTubeIframeAPIReady() {
+      player = new YT.Player('player', {
+        height: '360',
+        width: '640',
+        videoId: videoIds[Math.floor(Math.random() * videoIds.length)],
+        playerVars: {
+          autoplay: 1,
+          mute: 1
+        },
+        events: {
+          'onReady': onPlayerReady
+        }
+      });
+    }
+
+    // Autoplay the video when the player is ready
+    function onPlayerReady(event) {
+      event.target.playVideo();
+    }
+
+    // Function to play a random song from the list
+    function playRandomSong() {
+      const randomVideoId = videoIds[Math.floor(Math.random() * videoIds.length)];
+      player.loadVideoById(randomVideoId);
     }
   </script>
 </body>
