@@ -22,31 +22,26 @@
     }
   </style>
 </head>
-<body onclick="playSong()">
-  <h1>Welcome to punjabi Jukebox</h1>
-  <p>Click anywhere to start a random song</p>
-  <audio id="player" controls autoplay></audio>
+<body>
+  <h1>Welcome to Arjan Dhillon's Jukebox</h1>
+  <p>Click the button below to play a random song</p>
+  <button onclick="playSong()" style="padding: 10px 20px; background: green; color: white; border: none; font-size: 16px; border-radius: 5px;">Play</button>
+  <audio id="player" controls></audio>
 
   <script>
     const songs = [
-      "https://aac.saavncdn.com/245/95d50997cb5d4fe58c84866e58f7f8b2_160.mp4", // Jatt Disda
-      "https://aac.saavncdn.com/308/0652188de428ea865f97c7c1b3aee39d_160.mp4", // My Fellas
-      "https://aac.saavncdn.com/476/2469fd248dd88098f2f89d4f20923ed1_160.mp4", // Canada
-      "https://aac.saavncdn.com/766/38a456c66d9eaa4f3f4f1247d2746c56_160.mp4", // Bachke Bachke
-      "https://aac.saavncdn.com/295/4a4d961acc72cf0f8b9e0d69c7f4f674_160.mp4"  // Baddlan De Kaalje
+      "https://pagalsong.in/uploads/systemuploads/mp3/Arjan%20Dhillon/Glorious/01%20-%20Glorious%20(PaglaSongs).mp3",
+      "https://pagalsong.in/uploads/systemuploads/mp3/Arjan%20Dhillon/Glorious/02%20-%20Opinion%20(PaglaSongs).mp3",
+      "https://pagalsong.in/uploads/systemuploads/mp3/Arjan%20Dhillon/Jawani/01%20-%20Jawani%20(PaglaSongs).mp3",
+      "https://pagalsong.in/uploads/systemuploads/mp3/Arjan%20Dhillon/Glorious/04%20-%20Calculation%20(PaglaSongs).mp3"
     ];
 
     function playSong() {
       const player = document.getElementById("player");
-      const random = songs[Math.floor(Math.random() * songs.length)];
-      player.src = random;
+      const randomSong = songs[Math.floor(Math.random() * songs.length)];
+      player.src = randomSong;
       player.play();
     }
-
-    // For browsers that allow autoplay after load
-    window.onload = () => {
-      setTimeout(playSong, 500);
-    };
   </script>
 </body>
 </html>
